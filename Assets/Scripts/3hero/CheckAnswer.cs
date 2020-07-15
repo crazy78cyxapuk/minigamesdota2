@@ -62,13 +62,16 @@ public class CheckAnswer : MonoBehaviour
 
     private void FalseAnswer()
     {
-        gameObject.GetComponent<Button>().interactable = false;
-        gameObject.GetComponent<Image>().color = Color.red;
+        if(timer.GetComponent<Image>().fillAmount > 0)
+        {
+            gameObject.GetComponent<Button>().interactable = false;
+            gameObject.GetComponent<Image>().color = Color.red;
 
-        GameObject obj = GameObject.FindGameObjectWithTag("Timer");
-        obj.GetComponent<Timer>().MinusTime();
+            GameObject obj = GameObject.FindGameObjectWithTag("Timer");
+            obj.GetComponent<Timer>().MinusTime();
 
-        obj = GameObject.FindGameObjectWithTag("Music");
-        obj.GetComponent<Audio>().PlayNoCorrectAudio();
+            obj = GameObject.FindGameObjectWithTag("Music");
+            obj.GetComponent<Audio>().PlayNoCorrectAudio();
+        }
     }
 }
