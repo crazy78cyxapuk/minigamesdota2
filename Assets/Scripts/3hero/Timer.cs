@@ -20,9 +20,6 @@ public class Timer : MonoBehaviour
         totalCorrectHero = 0;
 
         callGG = false;
-
-        //colorImage = timerImage.GetComponent<Image>().color;
-        //colorImage = Color.green;
     }
 
     void Update()

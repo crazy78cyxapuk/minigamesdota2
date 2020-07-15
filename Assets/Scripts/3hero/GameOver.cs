@@ -7,25 +7,37 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     [SerializeField] private Text timeTxt, countHeroTxt;
-    private int time, countHero;
-    private GameObject obj;
+    private GameObject timer;
+
+    private Animator anim;
 
     private void Start()
     {
         timeTxt.text = "";
         countHeroTxt.text = "";
 
-        obj = GameObject.FindGameObjectWithTag("Timer");
+        timer = GameObject.FindGameObjectWithTag("Timer");
+
+        anim = GetComponent<Animator>();
     }
 
-    public void StartPrintAllText()
+    public void ShowGGPanel()
     {
-        StartCoroutine(PrintText());
+        StartCoroutine(ShowPanel());
     }
 
-    IEnumerator PrintText()
+    public void HideGGPanel()
+    {
+        anim.SetBool("isUpper", true);
+        anim.SetBool("isDown", false);
+    }
+
+    IEnumerator ShowPanel()
     {
         float waitTime = 0.1f;
+
+        anim.SetBool("isDown", true);
+        anim.SetBool("isIdle", false);
 
         timeTxt.text += "в";
         yield return new WaitForSeconds(waitTime);
@@ -58,7 +70,7 @@ public class GameOver : MonoBehaviour
         timeTxt.text += ": ";
         yield return new WaitForSeconds(waitTime);
 
-        double roundTime = Math.Round(obj.GetComponent<Timer>().totalTime, 1, MidpointRounding.AwayFromZero);
+        double roundTime = Math.Round(timer.GetComponent<Timer>().totalTime, 1, MidpointRounding.AwayFromZero);
         timeTxt.text += roundTime;
         yield return new WaitForSeconds(waitTime);
 
@@ -91,6 +103,6 @@ public class GameOver : MonoBehaviour
         countHeroTxt.text += ": ";
         yield return new WaitForSeconds(waitTime);
 
-        countHeroTxt.text += obj.GetComponent<Timer>().totalCorrectHero;
+        countHeroTxt.text += timer.GetComponent<Timer>().totalCorrectHero;
     }
 }

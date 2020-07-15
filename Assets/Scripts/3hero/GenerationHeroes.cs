@@ -34,6 +34,9 @@ public class GenerationHeroes : MonoBehaviour
         InitListHeroes();
         InitTask();
         answerTrue = 0;
+
+        GameObject obj = GameObject.FindGameObjectWithTag("Timer");
+        obj.GetComponent<Image>().fillAmount = 1f;
     }
 
     private void InitListHeroes()
@@ -123,13 +126,23 @@ public class GenerationHeroes : MonoBehaviour
                 yield return new WaitForSeconds(1f);
 
                 GameObject obj = GameObject.FindGameObjectWithTag("GG");
-                obj.GetComponent<GameOver>().StartPrintAllText();
+                obj.GetComponent<GameOver>().ShowGGPanel();
             }
         }
     }
 
-    public void ReloadGame()
+    public void ReloadGameBtn()
     {
-        SceneManager.LoadScene("3hero");
+        StartCoroutine(ReloadGame());
+    }
+
+    IEnumerator ReloadGame()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag("GG");
+        obj.GetComponent<GameOver>().HideGGPanel();
+
+        yield return new WaitForSeconds(1f);
+
+        NewGame();
     }
 }
